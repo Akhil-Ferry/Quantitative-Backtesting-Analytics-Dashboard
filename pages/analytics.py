@@ -140,7 +140,7 @@ def render():
             st.metric("JB p-value", f"{jb_p:.4f}")
             st.caption("p < 0.05 suggests non-normal distribution")
 
-        st.subdivision("Monthly Returns Heatmap")
+        st.subheader("Monthly Returns Heatmap")
         monthly_returns = data["close"].resample("ME").last().pct_change().dropna().to_frame("returns")
         if len(monthly_returns) > 1:
             fig = drawdown_heatmap(monthly_returns)

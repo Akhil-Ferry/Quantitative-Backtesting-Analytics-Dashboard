@@ -61,7 +61,7 @@ def drawdown_chart(drawdown_series):
         xaxis_title="Date", yaxis_title="Drawdown (%)",
         hovermode="x unified", height=350,
     )
-    fig.update_yaxis(ticksuffix="%")
+    fig.update_yaxes(ticksuffix="%")
     return fig
 
 

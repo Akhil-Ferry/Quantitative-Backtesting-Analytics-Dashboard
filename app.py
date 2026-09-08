@@ -1,5 +1,9 @@
 import streamlit as st
 from config import APP_TITLE, APP_ICON, PAGE_CONFIG
+from pages.analytics import render as render_analytics
+from pages.backtest import render as render_backtest
+from pages.dashboard import render as render_dashboard
+from pages.strategy_comparison import render as render_strategy_comparison
 
 st.set_page_config(page_title=APP_TITLE, page_icon=APP_ICON, **PAGE_CONFIG)
 
@@ -27,31 +31,20 @@ if "data_source" not in st.session_state:
 if "backtest_triggered" not in st.session_state:
     st.session_state["backtest_triggered"] = False
 
-pages = {
-    "📊 Dashboard": "dashboard",
-    "🎯 Backtest": "backtest",
-    "📈 Analytics": "analytics",
-    "⚖️ Comparison": "strategy_comparison",
-}
+pages = [
+    st.Page(render_dashboard, title="Dashboard", icon="📊", url_path="dashboard", default=True),
+    st.Page(render_backtest, title="Backtest", icon="🎯", url_path="backtest"),
+    st.Page(render_analytics, title="Analytics", icon="📈", url_path="analytics"),
+    st.Page(render_strategy_comparison, title="Comparison", icon="⚖️", url_path="comparison"),
+]
+
+page = st.navigation(pages)
 
 with st.sidebar:
-    st.markdown("### Navigation")
-    selection = st.radio("Go to", list(pages.keys()), label_visibility="collapsed")
-
     st.divider()
     st.caption(f"Data: {st.session_state.get('data_source', 'None loaded')}")
 
     st.divider()
     st.caption("Built with Streamlit · Pandas · NumPy · Plotly")
 
-page_module = pages[selection]
-if page_module == "dashboard":
-    from pages.dashboard import render
-elif page_module == "backtest":
-    from pages.backtest import render
-elif page_module == "analytics":
-    from pages.analytics import render
-elif page_module == "strategy_comparison":
-    from pages.strategy_comparison import render
-
-render()
+page.run()

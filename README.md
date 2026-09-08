@@ -9,7 +9,39 @@ Quantitative Backtesting & Analytics Dashboard – Python · Streamlit · Pandas
 
 ## Quick Start
 
+### 1. Create a virtual environment
+
+PowerShell:
+
+```powershell
+python -m venv .venv
+```
+
+Command Prompt:
+
+```bat
+python -m venv .venv
+```
+
+### 2. Activate the virtual environment
+
+PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate
+```
+
+Command Prompt:
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+### 3. Install dependencies and run the dashboard
+
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+To leave the virtual environment, run `deactivate`.
